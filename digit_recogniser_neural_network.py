@@ -4,26 +4,6 @@ from matplotlib import pyplot as plt
 import os
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-csv_path = os.path.join(script_dir, 'train.csv')
-
-# Load dataset
-data = pd.read_csv(csv_path)
-data = np.array(data)
-m, n = data.shape
-np.random.shuffle(data)
-
-# Development/Test split
-data_dev = data[0:1000].T
-Y_dev = data_dev[0]
-X_dev = data_dev[1:n]
-X_dev = X_dev / 255.
-
-# Training split
-data_train = data[1000:m].T
-Y_train = data_train[0]
-X_train = data_train[1:n]
-X_train = X_train / 255.
-_, m_train = X_train.shape
 
 def init_params():
     W1 = np.random.rand(10, 784) - 0.5
@@ -94,13 +74,11 @@ def make_predictions(X, W1, b1, W2, b2):
     _, _, _, A2 = forward_prop(W1, b1, W2, b2, X)
     return get_predictions(A2)
 
-def test_prediction(index, W1, b1, W2, b2):
-    current_image = X_train[:, index, None]
-    prediction = make_predictions(current_image, W1, b1, W2, b2)
-    label = Y_train[index]
+def test_prediction(X, label, W1, b1, W2, b2):
+    prediction = make_predictions(X, W1, b1, W2, b2)
     print("Prediction:", prediction[0])
     print("Label:     ", label)
-    current_image = current_image.reshape((28, 28)) * 255
+    current_image = X.reshape((28, 28)) * 255
     plt.gray()
     plt.imshow(current_image, interpolation='nearest')
     plt.show()
@@ -113,23 +91,37 @@ def load_model(filename="model_weights.npz"):
     data = np.load(filename)
     return data["W1"], data["b1"], data["W2"], data["b2"]
 
-# Main
+# ✅ Optional retraining block (only works locally if train.csv exists)
+def retrain_if_needed():
+    csv_path = os.path.join(script_dir, "train.csv")
+    if not os.path.exists(csv_path):
+        print("⚠️ train.csv not found. Skipping training.")
+        return
+
+    print("📊 Loading and training on train.csv...")
+    data = pd.read_csv(csv_path).values
+    np.random.shuffle(data)
+    data = data.T
+    Y_train = data[0]
+    X_train = data[1:] / 255.
+
+    W1, b1, W2, b2 = gradient_descent(X_train, Y_train, alpha=0.1, iterations=500)
+    save_model(W1, b1, W2, b2)
+
+# Run if needed
 if __name__ == "__main__":
     model_path = os.path.join(script_dir, "model_weights.npz")
-
     if os.path.exists(model_path):
-        print("Loading saved model...")
-        W1, b1, W2, b2 = load_model(filename=model_path)
+        print("✅ Loading saved model...")
+        W1, b1, W2, b2 = load_model(model_path)
+
+        # Optional test input
+        input_csv = os.path.join(script_dir, "input.csv")
+        if os.path.exists(input_csv):
+            x = pd.read_csv(input_csv, header=None).values.T
+            prediction = make_predictions(x, W1, b1, W2, b2)[0]
+            print("🧠 Predicted Digit:", prediction)
+        else:
+            print("ℹ️ No input.csv found to test.")
     else:
-        print("Training model from scratch...")
-        W1, b1, W2, b2 = gradient_descent(X_train, Y_train, alpha=0.1, iterations=500)
-        save_model(W1, b1, W2, b2, filename=model_path)
-        print("Model saved.")
-
-    # Evaluate on dev set
-    dev_preds = make_predictions(X_dev, W1, b1, W2, b2)
-    dev_acc = get_accuracy(dev_preds, Y_dev)
-    print(f"Dev Set Accuracy: {dev_acc:.4f}")
-
-    # Test on a sample
-    test_prediction(0, W1, b1, W2, b2)
+        retrain_if_needed()
