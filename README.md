@@ -60,7 +60,7 @@ Displays the uploaded image and guessed digit to the user
 📉 Limitations
 Works best with 28×28 grayscale images (similar to MNIST)
 
-Accuracy is ~84.5% (basic 2-layer network, no regularization or dropout)
+Accuracy is ~84.5% (basic 2-layer network, no regularization or dropout) for training data but drops significantly for images I made on MS Paint to test it .
 
 Prediction may fail or be inaccurate if:
 
@@ -85,4 +85,6 @@ Image processing with OpenCV
 Built by Rishav Dhara — powered by curiosity, creativity, and the capabilities of modern AI tools.
 This was a solo project made possible in just one day with the assistance of AI-based development support.
 
-PLEASE NOTE THAT THE MODEL IS TRAINED ON train.csv AND test.csv 
+PLEASE NOTE THAT THE MODEL IS TRAINED ON train.csv AND test.csv . THESE TWO FILES WERE WAY TOO BIG TO JUSTIDY KEEPING THEM ESPECIALLY WHEN RENDER CAN'T DEPLOY THE BUILD DUE TO THEM . THE TRAINING DATA IS EASILY AVAIALABLE ON KAGGLE . 
+
+Deployed Neural Network : https://mnist-digit-recognition-neural-network.onrender.com/
