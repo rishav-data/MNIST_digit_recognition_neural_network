@@ -85,3 +85,4 @@ Image processing with OpenCV
 Built by Rishav Dhara — powered by curiosity, creativity, and the capabilities of modern AI tools.
 This was a solo project made possible in just one day with the assistance of AI-based development support.
 
+PLEASE NOTE THAT THE MODEL IS TRAINED ON train.csv AND test.csv 
