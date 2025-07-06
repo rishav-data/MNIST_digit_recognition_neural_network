@@ -1,0 +1,110 @@
+Works with MNIST dataset (low rez image of hand written digits) . The Neural Network takes images of handwritten digits , classifies them and tells us what digits are written .
+
+Start off with 28x28 = 784 pixel training images . Each pixel is just a pixel value (between 0-255 , 255 being completely white and 0 being completely black). Assume we have 'm' number of training images .
+We can represent it like a matrix X                  
+                            X=        |------X1------|(T)        |:   :   :   :   :  |
+                                      |------X2------|           |:   :   :   :   :  |
+                                      |------X3------|        =  |X1  X2  X3  :   Xm |
+                                      |      ..      |           |:   :   :   :   :  |
+                                      |------Xm------|           |:   :   :   :   :  |
+                                           
+Each row of the matrix consists of an example(image) and each row is 784 columns long (each column corresponds to one pixel) 
+Transposing it gives us a matrix where each column corresponds to an example (image) and contains 784 rows (each row is a pixel)
+
+>GOAL is to take an image , process it then predict what digit that image represents .
+
+   [784]    =====> {0,1,2,3,4,5,6,7,8,9} - 10 classes
+---28x28---
+     |
+     |
+     |
+     V
+Layer 0(784 nodes) - INPUT LAYER
+Layer 1(10 units) - HIDDEN LAYER
+Layer 2(10 units) - OUTPUT LAYER -each unit corresponds to one digit that can be predicted-
+
+ {0}      {1}      {2}
+  o--------o \   ___o_____
+  o \__/___o _\ /___o_____\^
+  .  V     .   X    .      Y
+  . / \    .  / \   .     /
+  o/   \___o /   \__o____/
+[784]     [10]     [10]
+
+There are 3 parts to training this network->
+
+1)Forward Propagation 
+
+Take an image , then run it through the network and compute from this network what the output is going to be .
+To start , lets have the variable A0. A0 is our input layer (equal to X) . 
+A0 = X (784 x m)
+There is no processing going on here . Z1 is the unactivated first layer . What we are going to do to get Z1 is apply a weight and a bias . Weight = Dot product of a given matrix W with A0 . Bias term will be B1.
+    Z1   =   W1     .     A0     +     B1
+(10 x m)    (10 x 784) (784 x m)  (10 x 1=>10 x m)
+
+We are simply multiplying by a bunch of weights corresponding to each of the connections (7840) and then adding a constant bias term to each node . 
+After this we apply an activation function. Here we will use ReLU (Rectified Linear Unit) . ReLU(X) = X if X>0 , 0 if <=0 .
+A1 is going to be ReLU of every value in Z1 .
+A1 = g(Z1) = ReLU(Z1)
+
+Z2 is the unactivated second layer . Values are going to be equal to second weight parameter(weight corresponding to each connection)times the activated first layer plus another constant bias term .
+    Z2    =   W2     .    A1    +   B2
+(10 x m)   (10 x 10)   (10 x m)   (10 x 1 => 10 x m)
+
+Now we call another activation function . This time we use SoftMax , because this time we are working with the Output layer , thus requiring each of the 10 nodes corresponding to each of the 10 digits to be recognised to have probabilities (with a value between 0-1 , 1 being absolute certainty and 0 being no chance of occurring) .The softmax function takes a list of raw numbers (called logits) and squashes them into values between 0 and 1, so that they represent probabilities and sum to 1.
+
+-Start with a list of raw scores from your neural network’s final layer — these can be any real numbers, positive or negative.
+-Exponentiate each value (raise e to the power of each one). This makes all the numbers positive and spreads them out.
+-Add up all those exponentiated values.
+-Divide each exponentiated value by that total — this gives you a fraction of the whole, like a pie chart slice.
+
+The result is a new list, where:
+Each number is between 0 and 1.
+All numbers add up to exactly 1. 
+The biggest original value turns into the largest probability.
+
+AZ= Softmax(Ze)
+
+2)Backwards Propagation
+
+We shall run algorithms to optimize the weights an biases . This is called backwards propagation . We start out the other way . We take our final prediction and then check how much it deviated from the actual label . This gives us an error . Then we see how much each of the weights and biases contributed to those errors and then adjust the weights and biases accordingly .
+
+DZ2 represents the error of the second layer . We take our prediction and substract the actual label from them .
+
+   DZ2      =     A2       -      Y
+(10 x m)      (10 x m)        (10 x m)
+
+We are going to encode the label into an array . Like if y = 4 then in an array except the 4th term being 1 , everything else will be 0.
+Now we do some calculations to find out how much W and B contributed to that error . DW2 is the derivative of loss function with respect to the weights in layer 2 . DB2 is average of the absolute error , literally just how much the output was off by . 
+
+    DW2   =   (1/m)DZ2  .  A1^T
+(10 x 10)    (10 x m)    (m x 10)
+  
+ DB2   =   1/m  ∑   DZ2
+(10^1)         (10 X 1)
+
+Now we do the same thing for the first layer but with more mathematics . We do a propagation in reverse . To find DZ1 we take the weight of the second term transposed times DZ2 (error from 2nd layer) with g prime(g') which is the derivate of the activation function (we have to undo the activation function) of Z2. Now just we just compute how much W1 and B1 contributed to the error . 
+
+   DW1      =   (1/m)DZ1     X^T
+(10 x 784)      (10 x m)  (m x 784)
+
+   DB1      =   (1/m) ∑  DZ1
+(10 x 1)          (10 x 1)
+
+3)Updating Parameters 
+
+Now that we have calculated how much all the weights and biases have caused an error by , we update the parameters accordingly . α is some learning rate . (α is a parameter we set . It's not set by the gradient descent).
+W1 = W1 - αDW1
+B1 = B1 - αDB1
+W2 = W2 - αDW2
+B2 = B2 - αDB2
+
+Now that we have updated out parameters , we go through the whole process again . This is core machine learning . 
+
+Forward Propagation <-------Updating Parameters
+            |               ^
+            |               |
+            |               |
+            V               |
+         Backward Propagation
+

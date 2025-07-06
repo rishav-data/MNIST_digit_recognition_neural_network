@@ -1,0 +1,3 @@
+This neural network is trained only on images that are 784 pixels (28x28 resolution) . It cannot work with images that have higher or lower pixel count from 784 pixels . It also cannot work with 784 pixel images that are not 28x28 pixels as it has only been trained to work with 28x28 pixel square images . Images like 392x2 pixels or any other pixel orientations that aren't 28x28 pixels will not be recognised by the network . 
+
+This happens due to the greyscale matrix not being formed in the desired shape and the gradient descent being throw off course from the training data .

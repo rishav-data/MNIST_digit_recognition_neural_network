@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digit Recognizer Upload</title>
+    <style>
+        :root {
+            --primary-color: #0dcaf0;
+            --secondary-color: #00b4d8;
+            --bg-dark: #121826;
+            --bg-card: #1e2635;
+            --text-light: #f1f3f5;
+            --warning-bg: #2e2f41;
+            --warning-border: #fdd835;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            max-width: 650px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background-image: radial-gradient(circle at top left, #1a2238, #121826);
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+        }
+
+        .note {
+            background-color: var(--warning-bg);
+            padding: 15px 20px;
+            border-left: 5px solid var(--warning-border);
+            border-radius: 5px;
+            margin-bottom: 25px;
+            color: #fcefb4;
+        }
+
+        .note strong {
+            color: #ffe066;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-color: var(--bg-card);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="file"] {
+            padding: 15px;
+            border: 2px dashed #444c5e;
+            border-radius: 8px;
+            background-color: #222b3a;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"]:hover {
+            border-color: var(--primary-color);
+            background-color: #2a3245;
+        }
+
+        input[type="file"]::file-selector-button {
+            padding: 10px 15px;
+            background-color: var(--primary-color);
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            border: none;
+            color: #000;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: center;
+            width: fit-content;
+            box-shadow: 0 2px 10px rgba(13, 202, 240, 0.4);
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.6);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Upload a Digit Image</h2>
+    <div class="note">
+        <strong>Important:</strong> The image must be:<br>
+        - Exactly <strong>28×28 pixels</strong><br>
+        - Grayscale or high contrast (white digit on black background)<br>
+        - Similar to the <strong>MNIST dataset</strong><br>
+        - PNG or JPG format
+    </div>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept=".png,.jpg,.jpeg" required>
+        <button type="submit">Upload & Predict</button>
+    </form>
+</body>
+</html>
