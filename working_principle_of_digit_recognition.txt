@@ -108,3 +108,9 @@ Forward Propagation <-------Updating Parameters
             V               |
          Backward Propagation
 
+
+
+We calculated cross-entropy as -log(predicted_probability_of_true_class), and used that to compute the gradient w.r.t output scores in backpropagation.”
+
+Here the loss function was Cross-Entropy loss function.
+
