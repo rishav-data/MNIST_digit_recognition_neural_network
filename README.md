@@ -85,6 +85,6 @@ Image processing with OpenCV
 Built by Rishav Dhara — powered by curiosity, creativity, and the capabilities of modern AI tools.
 This was a solo project made possible in just one day with the assistance of AI-based development support.
 
-PLEASE NOTE THAT THE MODEL IS TRAINED ON train.csv AND test.csv . THESE TWO FILES WERE WAY TOO BIG TO JUSTIDY KEEPING THEM ESPECIALLY WHEN RENDER CAN'T DEPLOY THE BUILD DUE TO THEM . THE TRAINING DATA IS EASILY AVAIALABLE ON KAGGLE . 
+PLEASE NOTE THAT THE MODEL IS TRAINED ON train.csv AND test.csv . THESE TWO FILES WERE WAY TOO BIG TO JUSTIFY KEEPING THEM ESPECIALLY WHEN RENDER CAN'T DEPLOY THE BUILD DUE TO THEM . THE TRAINING DATA IS EASILY AVAIALABLE ON KAGGLE . 
 
 Deployed Neural Network : https://mnist-digit-recognition-neural-network.onrender.com/
