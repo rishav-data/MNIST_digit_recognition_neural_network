@@ -15,21 +15,8 @@ This is a simple handwritten digit recognizer built from scratch using **NumPy**
 
 ## 📂 Project Structure
 
-📁 digit-recogniser/
-├── app.py # Flask server for UI and predictions
-├── converter.py # Converts input image to flattened grayscale CSV
-├── digit_recogniser_neural_network.py # Neural net logic and weights
-├── model_weights.npz # Saved trained weights
-├── train.csv # MNIST training data
-├── test.csv # MNIST test data
-├── limitations.txt # Notes on model constraints
-├── working_principle_of_digit_recognition.txt # Math and logic explanation
-├── templates/
-│ └── index.html # Upload form interface
-├── static/
-│ └── uploads/
-│ └── digit.png # Uploaded digit image (retained for reference)
-└── MNIST images/ # Sample MNIST digit images
+<img width="652" height="390" alt="structure" src="https://github.com/user-attachments/assets/1217d25d-9292-49e6-943b-27a19461ac58" />
+
 
 🚀 How It Works
 User uploads a digit image via index.html (must be 28×28px, grayscale or black background).
