@@ -86,6 +86,10 @@ Image processing with OpenCV
 ## ✍️ Author
 Built by Rishav Dhara — powered by curiosity, creativity, and the capabilities of modern AI tools.
 This was a solo project made possible in just one day with the assistance of AI-based development support.
+Powered heavily by math . Heavy use of Matrix dot products and calling activation and loss functions , explained in more detail in the working principles file .
+
+<img width="1881" height="903" alt="Screenshot 2025-07-25 121811" src="https://github.com/user-attachments/assets/fb5cb678-54ef-4fb2-bde7-5d8fecb1ffca" />
+
 
 PLEASE NOTE THAT THE MODEL IS TRAINED ON train.csv AND test.csv . THESE TWO FILES WERE WAY TOO BIG TO JUSTIFY KEEPING THEM ESPECIALLY WHEN RENDER CAN'T DEPLOY THE BUILD DUE TO THEM . THE TRAINING DATA IS EASILY AVAIALABLE ON KAGGLE . 
 
