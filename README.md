@@ -2,6 +2,9 @@
 
 This is a simple handwritten digit recognizer built from scratch using **NumPy** and **Flask**. It uses a custom-trained neural network on the **MNIST dataset**, and offers a clean web interface to upload and classify digit images in real time.
 
+<img width="1047" height="730" alt="fr" src="https://github.com/user-attachments/assets/7d121035-6263-4364-a448-a22075308d77" />
+
+
 ---
 
 ## 🌟 Highlights
@@ -42,6 +45,9 @@ app.py then:
 Sends the prediction back to index.html
 
 Displays the uploaded image and guessed digit to the user
+
+
+<img width="277" height="282" alt="res" src="https://github.com/user-attachments/assets/31e1d9b4-388c-4fa5-bcb7-711ac56db537" />
 
 ## 📌 Note: digit.png and input.csv are not deleted, so you can inspect them after each upload.
 ## 📉 Limitations
